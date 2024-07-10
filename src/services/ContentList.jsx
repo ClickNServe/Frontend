@@ -1,39 +1,24 @@
-const adminContent = [
+import { FiShoppingBag } from "react-icons/fi";
+import { IoBedOutline } from "react-icons/io5";
+
+
+const content = [
   {
-    id: "admin",
-    title: "Home",
+    name: 'orders',
+    icon: <FiShoppingBag />
   },
   {
-    id: "admin/rooms",
-    title: "Rooms",
+    name: 'rooms',
+    icon: 
   },
   {
-    id: "admin/facilities",
-    title: "Facilities",
+    name: 'facilities',
+    icon: 
   },
   {
-    id: "admin/beds",
-    title: "Beds",
-  },
+    name: 'beds',
+    icon: <IoBedOutline />
+  }
 ];
 
-const visitorContent = [
-    {
-        id: "",
-        title: "Home"
-    },
-    {
-        id: "rooms",
-        title: "Rooms"
-    },
-    {
-        id: "wishlist",
-        title: "Wishlist"
-    },
-    {
-        id: "history",
-        title: "History"
-    }
-];
-
-export { adminContent, visitorContent };
+export { content };
