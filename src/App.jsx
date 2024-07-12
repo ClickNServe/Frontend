@@ -6,6 +6,7 @@ import Sidebar from "./components/fixed/Sidebar";
 import Facility from "./pages/Facility";
 import Bed from "./pages/Bed";
 import Room from "./pages/Room";
+import Footer from "./components/fixed/Footer";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/facilities" element={<Facility />} />
             <Route path="/beds" element={<Bed />} />
           </Routes>
+          <Footer />
         </div>
       </div>
     </div>

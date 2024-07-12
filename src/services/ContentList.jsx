@@ -6,7 +6,7 @@ import { PiTelevision } from "react-icons/pi";
 const content = [
   {
     id: "",
-    name: "orders",
+    name: "Reservation",
     icon: <FiShoppingBag />,
   },
   {

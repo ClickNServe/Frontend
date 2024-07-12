@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { bedAttribute } from "../../services/ContentList";
 import { tdStyle, thStyle } from "../../services/Helper";
 
-const BedTable = ({ datas }) => {
+const BedTable = ({ datas, onDeleteClick }) => {
   return (
     <div className="border rounded-lg shadow overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-indigo-500">
-          {bedAttribute.map((content, index) => (
-            <th key={index} scope="col" className={thStyle}>
-              {content.name}
-            </th>
-          ))}
+          <tr>
+            {bedAttribute.map((content, index) => (
+              <th key={index} scope="col" className={thStyle}>
+                {content.name}
+              </th>
+            ))}
+          </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 text-center">
           {datas.map((data, index) => (
@@ -27,6 +29,7 @@ const BedTable = ({ datas }) => {
                   Edit
                 </button>
                 <button
+                  onClick={() => onDeleteClick("0")}
                   type="button"
                   className="ml-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800"
                 >
