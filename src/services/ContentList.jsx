@@ -1,24 +1,59 @@
 import { FiShoppingBag } from "react-icons/fi";
 import { IoBedOutline } from "react-icons/io5";
-
+import { LuDoorOpen } from "react-icons/lu";
+import { PiTelevision } from "react-icons/pi";
 
 const content = [
   {
-    name: 'orders',
-    icon: <FiShoppingBag />
+    id: "",
+    name: "orders",
+    icon: <FiShoppingBag />,
   },
   {
-    name: 'rooms',
-    icon: 
+    id: "rooms",
+    name: "rooms",
+    icon: <LuDoorOpen />,
   },
   {
-    name: 'facilities',
-    icon: 
+    id: "facilities",
+    name: "facilities",
+    icon: <PiTelevision />,
   },
   {
-    name: 'beds',
-    icon: <IoBedOutline />
-  }
+    id: "beds",
+    name: "beds",
+    icon: <IoBedOutline />,
+  },
 ];
 
-export { content };
+const bedAttribute = [
+  {
+    name: "No",
+  },
+  {
+    name: "Bed Type",
+  },
+  {
+    name: "Price",
+  },
+  {
+    name: "Action",
+  },
+];
+
+const facilityAttribute = [
+  {
+    name: "No",
+  },
+  {
+    name: "Facility Name",
+  },
+  {
+    name: "Price",
+  },
+  {
+    name: "Action",
+  },
+];
+
+export { content, bedAttribute, facilityAttribute };
