@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DetailModal = () => {
+const DetailModal = ({ onClose, onClick }) => {
   return (
     <div>DetailModal</div>
   )
