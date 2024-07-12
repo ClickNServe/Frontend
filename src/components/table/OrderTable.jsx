@@ -16,7 +16,7 @@ const OrderTable = ({ datas }) => {
         <tbody className="divide-y divide-gray-200 text-center">
           {datas.map((data, index) => (
             <tr key={index}>
-              <td className={tdStyle}> {index} </td>
+              <td className={tdStyle}> {index + 1} </td>
               <td className={tdStyle}> {data.name} </td>
               <td className={tdStyle}> {data.contact} </td>
               <td className={tdStyle}> {data.roomNumber} </td>

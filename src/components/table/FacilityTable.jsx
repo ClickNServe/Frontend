@@ -2,7 +2,7 @@ import React from "react";
 import { bedAttribute, facilityAttribute } from "../../services/ContentList";
 import { tdStyle, thStyle } from "../../services/Helper";
 
-const FacilityTable = ({ datas }) => {
+const FacilityTable = ({ datas, onDeleteClick }) => {
   return (
     <div className="border rounded-lg shadow overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
@@ -16,7 +16,7 @@ const FacilityTable = ({ datas }) => {
         <tbody className="divide-y divide-gray-200 text-center">
           {datas.map((data, index) => (
             <tr key={index}>
-              <td className={tdStyle}> {index} </td>
+              <td className={tdStyle}> {index + 1} </td>
               <td className={tdStyle}> {data.facilityName} </td>
               <td className={tdStyle}> {data.price} </td>
               <td className={tdStyle}>
@@ -27,6 +27,7 @@ const FacilityTable = ({ datas }) => {
                   Edit
                 </button>
                 <button
+                  onClick={() => onDeleteClick("0")}
                   type="button"
                   className="ml-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800"
                 >
