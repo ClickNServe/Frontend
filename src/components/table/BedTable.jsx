@@ -22,13 +22,13 @@ const BedTable = ({ datas }) => {
               <td className={tdStyle}>
                 <button
                   type="button"
-                  class="mr-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800"
+                  className="mr-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800"
                 >
                   Edit
                 </button>
                 <button
                   type="button"
-                  class="ml-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800"
+                  className="ml-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800"
                 >
                   Delete
                 </button>

@@ -1,13 +1,13 @@
 import React from "react";
-import { bedAttribute, facilityAttribute } from "../../services/ContentList";
 import { tdStyle, thStyle } from "../../services/Helper";
+import { orderAttribute } from "../../services/ContentList";
 
-const FacilityTable = ({ datas }) => {
+const OrderTable = ({ datas }) => {
   return (
     <div className="border rounded-lg shadow overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-indigo-500">
-          {facilityAttribute.map((content, index) => (
+          {orderAttribute.map((content, index) => (
             <th key={index} scope="col" className={thStyle}>
               {content.name}
             </th>
@@ -17,20 +17,16 @@ const FacilityTable = ({ datas }) => {
           {datas.map((data, index) => (
             <tr key={index}>
               <td className={tdStyle}> {index} </td>
-              <td className={tdStyle}> {data.facilityName} </td>
-              <td className={tdStyle}> {data.price} </td>
+              <td className={tdStyle}> {data.name} </td>
+              <td className={tdStyle}> {data.contact} </td>
+              <td className={tdStyle}> {data.roomNumber} </td>
+              <td className={tdStyle}> Rp. {data.charge} </td>
               <td className={tdStyle}>
                 <button
                   type="button"
-                  className="mr-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800"
+                  className="mr-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800"
                 >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  className="ml-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800"
-                >
-                  Delete
+                  Detail
                 </button>
               </td>
             </tr>
@@ -41,4 +37,4 @@ const FacilityTable = ({ datas }) => {
   );
 };
 
-export default FacilityTable;
+export default OrderTable;

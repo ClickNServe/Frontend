@@ -56,4 +56,52 @@ const facilityAttribute = [
   },
 ];
 
-export { content, bedAttribute, facilityAttribute };
+const roomAttribute = [
+  {
+    name: "No"
+  },
+  {
+    name: "Picture"
+  },
+  {
+    name: "Floor"
+  },
+  {
+    name: "Room Number"
+  },
+  {
+    name: "Price per Night"
+  },
+  {
+    name: "Availability"
+  },
+  {
+    name: "Size Area"
+  },
+  {
+    name: "Action"
+  }
+]
+
+const orderAttribute = [
+  {
+    name: "No"
+  },
+  {
+    name: "Name"
+  },
+  {
+    name: "Contact"
+  },
+  {
+    name: "Room Number"
+  },
+  {
+    name: "Charge"
+  },
+  {
+    name: "Action"
+  }
+]
+
+export { content, bedAttribute, facilityAttribute, roomAttribute, orderAttribute };
