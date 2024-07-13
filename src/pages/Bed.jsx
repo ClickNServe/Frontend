@@ -5,6 +5,7 @@ import ButtonCreate from "../components/small/ButtonCreate";
 import SearchBar from "../components/small/SearchBar";
 import BedTable from "../components/table/BedTable";
 import DeleteModal from "../components/modal/DeleteModal";
+import CreateBedModal from "../components/modal/create/CreateBedModal";
 
 const datas = () => {
   return [
@@ -22,25 +23,47 @@ const datas = () => {
 };
 
 const Bed = () => {
-  const [showModal, setShowModal] = useState(false);
+  // modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  // data
   const [selectedId, setSelectedId] = useState("");
   const [bedData, setBedData] = useState([]);
   const [query, setQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [createBedData, setCreateBedData] = useState({
+    bedType: "",
+    price: "",
+  });
 
+  // create action
+  const handleCreateDataChange = (field, value) => {
+    setCreateBedData({ ...createBedData, [field]: value });
+  };
+  const handleCreateClick = () => {
+    setShowCreateModal(true);
+  };
+  const handleCloseCreateModal = () => {
+    setShowCreateModal(false);
+  };
+  const handleCreateAction = async () => {
+    setShowCreateModal(false);
+  };
+
+  // delete action
   const handleDeleteClick = (id) => {
     setSelectedId(id);
-    setShowModal(true);
+    setShowDeleteModal(true);
   };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
   };
-
   const handleDeleteAction = async () => {
-    setShowModal(false);
+    setShowDeleteModal(false);
   };
 
+  // search action
   const handleSearch = (e) => {
     setQuery(e.target.value);
   };
@@ -67,13 +90,13 @@ const Bed = () => {
     <div className="relative">
       <div
         className={`transition-opacity duration-500 ${
-          showModal ? "opacity-50" : "opacity-100"
+          showDeleteModal || showCreateModal ? "opacity-50" : "opacity-100"
         }`}
       >
         <div className="flex flex-col">
           <div className="m-8">
             <div className="mb-4 flex justify-between">
-              <ButtonCreate message={"Bed"} />
+              <ButtonCreate message={"Bed"} createAction={handleCreateClick} />
               <SearchBar
                 query={query}
                 handleSearch={handleSearch}
@@ -81,13 +104,27 @@ const Bed = () => {
               />
             </div>
             <div className="min-w-full inline-block align-middle">
-              <BedTable datas={filteredData} onDeleteClick={handleDeleteClick} />
+              <BedTable
+                datas={filteredData}
+                onDeleteClick={handleDeleteClick}
+              />
             </div>
           </div>
         </div>
       </div>
-      {showModal && (
-        <DeleteModal onClose={handleCloseModal} onDelete={handleDeleteAction} />
+      {showDeleteModal && (
+        <DeleteModal
+          onClose={handleCloseDeleteModal}
+          onDelete={handleDeleteAction}
+        />
+      )}
+      {showCreateModal && (
+        <CreateBedModal
+          onClose={handleCloseCreateModal}
+          createBedData={createBedData}
+          onChange={handleCreateDataChange}
+          onAction={handleCreateAction}
+        />
       )}
     </div>
   );

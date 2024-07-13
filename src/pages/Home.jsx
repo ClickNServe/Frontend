@@ -147,8 +147,7 @@ const Home = () => {
       >
         <div className="flex flex-col">
           <div className="m-8">
-            <div className="mb-4 flex justify-between">
-              <ButtonCreate message={"Reservation"} />
+            <div className="mb-4 flex justify-end">
               <SearchBar
                 query={query}
                 handleSearch={handleSearch}
