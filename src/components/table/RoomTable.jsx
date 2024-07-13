@@ -28,7 +28,7 @@ const RoomTable = ({ datas, onDeleteClick, onDetailClick, onUpdateClick }) => {
               </td>
               <td className={tdStyle}> {data.floor} </td>
               <td className={tdStyle}> {data.roomNumber} </td>
-              <td className={tdStyle}> Rp. {data.pricePerNight} </td>
+              <td className={tdStyle}> ${data.pricePerNight} </td>
               <td className={tdStyle}>
                 {data.availability ? (
                   <div className="text-green-800 bg-green-200 rounded-xl mx-6 uppercase font-bold">
@@ -57,7 +57,7 @@ const RoomTable = ({ datas, onDeleteClick, onDetailClick, onUpdateClick }) => {
                   Edit
                 </button>
                 <button
-                  onClick={() => onDeleteClick("0")}
+                  onClick={() => onDeleteClick(index)}
                   type="button"
                   className="inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800"
                 >

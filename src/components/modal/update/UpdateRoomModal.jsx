@@ -41,7 +41,7 @@ const UpdateRoomModal = ({
               <label className="font-semibold">Picture</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <input
-                  className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="text"
                   placeholder="Input your room picture..."
                   name="picture"
@@ -55,7 +55,7 @@ const UpdateRoomModal = ({
               <label className="font-semibold">Room Number</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <input
-                  className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="number"
                   placeholder={`Current : ${data.roomNumber}`}
                   name="roomNumber"
@@ -72,7 +72,7 @@ const UpdateRoomModal = ({
               <label className="font-semibold">Price Per Night ($) </label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <input
-                  className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="number"
                   placeholder={`Current : $${data.pricePerNight}`}
                   name="pricePerNight"
@@ -86,7 +86,7 @@ const UpdateRoomModal = ({
               <label className="font-semibold">Size Area (m²) </label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <input
-                  className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="number"
                   min={1}
                   placeholder={`Current : ${data.sizeArea}m²`}
@@ -101,7 +101,7 @@ const UpdateRoomModal = ({
               <label className="font-semibold">Availability</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <input
-                  className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="text"
                   placeholder="Input your new bed type..."
                   name="bedType"
@@ -117,7 +117,7 @@ const UpdateRoomModal = ({
               <label className="font-semibold">Beds</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <input
-                  className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="text"
                   placeholder="Input beds..."
                   name="bedType"
@@ -131,7 +131,7 @@ const UpdateRoomModal = ({
               <label className="font-semibold">Facilities</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <input
-                  className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="text"
                   placeholder="Input facilities..."
                   name="bedType"

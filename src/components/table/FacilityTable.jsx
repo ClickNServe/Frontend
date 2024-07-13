@@ -20,7 +20,7 @@ const FacilityTable = ({ datas, onDeleteClick, onUpdateClick }) => {
             <tr key={index}>
               <td className={tdStyle}> {index + 1} </td>
               <td className={tdStyle}> {data.facilityName} </td>
-              <td className={tdStyle}> {data.price} </td>
+              <td className={tdStyle}> ${data.price} </td>
               <td className={tdStyle}>
                 <button
                   onClick={() => onUpdateClick(index)}

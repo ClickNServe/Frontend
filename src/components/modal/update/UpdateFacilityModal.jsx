@@ -28,7 +28,7 @@ const UpdateFacilityModal = ({
             <label className="font-semibold">New Facility Name</label>
             <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
               <input
-                className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="text"
                 placeholder={`Current : ${data.facilityName}`}
                 name="facilityName"
@@ -42,7 +42,7 @@ const UpdateFacilityModal = ({
             <label className="font-semibold">New Price ($) </label>
             <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
               <input
-                className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="number"
                 placeholder={`Current : $${data.price}`}
                 min={1}

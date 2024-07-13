@@ -7,10 +7,12 @@ import DeleteModal from "../components/modal/delete/DeleteModal";
 import DetailRoomModal from "../components/modal/read/DetailRoomModal";
 import UpdateRoomModal from "../components/modal/update/UpdateRoomModal";
 import CreateRoomModal from "../components/modal/create/CreateRoomModal";
+import CreateReservationModal from "../components/modal/create/CreateReservationModal";
 
 const datas = [
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 101,
     floor: 1,
     pricePerNight: 150.0,
@@ -18,7 +20,8 @@ const datas = [
     sizeArea: 100,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 202,
     floor: 2,
     pricePerNight: 200.0,
@@ -26,7 +29,8 @@ const datas = [
     sizeArea: 120,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 303,
     floor: 3,
     pricePerNight: 250.0,
@@ -34,7 +38,8 @@ const datas = [
     sizeArea: 80,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 404,
     floor: 4,
     pricePerNight: 300.0,
@@ -42,7 +47,8 @@ const datas = [
     sizeArea: 150,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 505,
     floor: 5,
     pricePerNight: 350.0,
@@ -50,7 +56,8 @@ const datas = [
     sizeArea: 200,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 606,
     floor: 6,
     pricePerNight: 400.0,
@@ -58,7 +65,8 @@ const datas = [
     sizeArea: 75,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 707,
     floor: 7,
     pricePerNight: 450.0,
@@ -66,7 +74,8 @@ const datas = [
     sizeArea: 90,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 808,
     floor: 8,
     pricePerNight: 500.0,
@@ -74,7 +83,8 @@ const datas = [
     sizeArea: 110,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 909,
     floor: 9,
     pricePerNight: 550.0,
@@ -82,7 +92,8 @@ const datas = [
     sizeArea: 130,
   },
   {
-    picture: faker.image.avatar(),
+    picture:
+      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
     roomNumber: 1010,
     floor: 10,
     pricePerNight: 600.0,
@@ -97,7 +108,8 @@ const Room = () => {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [showCreateReservation, setShowCreateReservation] = useState(false);
+  const [showCreateReservationModal, setShowCreateReservationModal] =
+    useState(false);
 
   // data
   const [query, setQuery] = useState("");
@@ -121,6 +133,15 @@ const Room = () => {
     facilities: [{ facilityName: "" }],
     beds: [{ bedType: "" }],
     sizeArea: "",
+  });
+  const [createReservationData, setCreateReservationData] = useState({
+    name: "",
+    contact: "",
+    roomNumber: "",
+    checkIn: "",
+    checkOut: "",
+    orderTime: "",
+    charge: "",
   });
 
   // create action
@@ -153,7 +174,8 @@ const Room = () => {
   const handleUpdateDataChange = (field, value) => {
     setUpdateRoomData({ ...updateRoomData, [field]: value });
   };
-  const handleUpdateClick = () => {
+  const handleUpdateClick = (id) => {
+    setSelectedId(id);
     setShowUpdateModal(true);
   };
   const handleCloseUpdateModal = () => {
@@ -196,6 +218,33 @@ const Room = () => {
     setShowDetailModal(false);
   };
 
+  // reserve action
+  const handleReserveDataChange = (field, value) => {
+    setCreateReservationData({ ...createReservationData, [field]: value });
+  };
+  const handleReserveClick = () => {
+    setShowDetailModal(false);
+    setShowCreateReservationModal(true);
+  };
+  const handleCloseReserveModal = () => {
+    setShowCreateReservationModal(false);
+  };
+  const handleReserveAction = async () => {
+    setShowCreateReservationModal(false);
+    resetReserveAction();
+  };
+  const resetReserveAction = () => {
+    setCreateReservationData({
+      name: "",
+      contact: "",
+      roomNumber: "",
+      checkIn: "",
+      checkOut: "",
+      orderTime: "",
+      charge: "",
+    });
+  };
+
   // search action
   const handleSearch = (e) => {
     setQuery(e.target.value);
@@ -226,7 +275,7 @@ const Room = () => {
           showDeleteModal ||
           showDetailModal ||
           showUpdateModal ||
-          showCreateReservation
+          showCreateReservationModal
             ? "opacity-50"
             : "opacity-100"
         }`}
@@ -262,6 +311,7 @@ const Room = () => {
         <DetailRoomModal
           onClose={handleCloseDetailModal}
           data={datas[selectedId]}
+          onReserve={handleReserveClick}
         />
       )}
       {showCreateModal && (
@@ -279,6 +329,15 @@ const Room = () => {
           updateRoomData={updateRoomData}
           onChange={handleUpdateDataChange}
           onAction={handleUpdateAction}
+        />
+      )}
+      {showCreateReservationModal && (
+        <CreateReservationModal
+          data={filteredData[selectedId]}
+          onClose={handleCloseReserveModal}
+          createReservationData={createReservationData}
+          onChange={handleReserveDataChange}
+          onAction={handleReserveAction}
         />
       )}
     </div>

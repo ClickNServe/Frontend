@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 
-const DetailRoomModal = ({ onClose, data }) => {
+const DetailRoomModal = ({ onClose, data, onReserve }) => {
   return (
     <div
       className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform popup-visible z-50`}
@@ -40,7 +40,7 @@ const DetailRoomModal = ({ onClose, data }) => {
             <div className="text-md flex">
               <h1 className="font-bold">
                 Price Per Night :{" "}
-                <span className="font-normal">{data.pricePerNight}</span>
+                <span className="font-normal">${data.pricePerNight}</span>
               </h1>
             </div>
             <div className="text-md flex">
@@ -77,7 +77,7 @@ const DetailRoomModal = ({ onClose, data }) => {
         </div>
         <div className="mt-4 flex justify-center items-center space-x-4">
           <button
-            onClick={onClose}
+            onClick={onReserve}
             className="transition-200 hover:scale-105 w-full font-bold shadow-sm rounded-lg py-4 text-white flex items-center justify-center transition-all duration-300 ease-in-out bg-indigo-600"
           >
             <span>Reserve</span>

@@ -27,7 +27,7 @@ const CreateFacilityModal = ({
             <label className="font-semibold">Facility Name</label>
             <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
               <input
-                className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="text"
                 placeholder="Input your new bed type..."
                 name="facilityName"
@@ -41,7 +41,7 @@ const CreateFacilityModal = ({
             <label className="font-semibold">Price ($) </label>
             <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
               <input
-                className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="number"
                 placeholder="Input the price..."
                 min={1}

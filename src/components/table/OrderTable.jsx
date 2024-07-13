@@ -22,7 +22,7 @@ const OrderTable = ({ datas, onDetailClick }) => {
               <td className={tdStyle}> {data.name} </td>
               <td className={tdStyle}> {data.contact} </td>
               <td className={tdStyle}> {data.roomNumber} </td>
-              <td className={tdStyle}> Rp. {data.charge} </td>
+              <td className={tdStyle}> ${data.charge} </td>
               <td className={tdStyle}>
                 <button
                   onClick={() => onDetailClick(index)}

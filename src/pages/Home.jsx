@@ -153,7 +153,7 @@ const Home = () => {
                 message={"reservation"}
               />
             </div>
-            <div class="min-w-full inline-block align-middle">
+            <div className="min-w-full inline-block align-middle">
               <OrderTable
                 datas={filteredData}
                 onDetailClick={handleDetailClick}
