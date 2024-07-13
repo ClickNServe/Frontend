@@ -25,18 +25,12 @@ const UpdateBedModal = ({
         </div>
         <div className="mt-5">
           <div className="text-md my-5">
-            <div className="mb-2">
-              <label className="font-semibold">
-                Current Bed Type :
-                <span className="font-normal"> {data.bedType} </span>
-              </label>
-            </div>
             <label className="font-semibold">New Bed Type</label>
             <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
               <input
                 className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="text"
-                placeholder="Input your new bed type..."
+                placeholder={`Current : ${data.bedType}`}
                 name="bedType"
                 onChange={(e) => onChange("bedType", e.target.value)}
                 value={updateBedData.bedType}
@@ -45,19 +39,12 @@ const UpdateBedModal = ({
             </div>
           </div>
           <div className="text-md my-5">
-            <div className="mb-2">
-              <label className="font-semibold">
-                {" "}
-                Current Price :{" "}
-                <span className="font-normal"> ${data.price} </span>
-              </label>
-            </div>
             <label className="font-semibold">New Price ($) </label>
             <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
               <input
                 className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="number"
-                placeholder="Input the price..."
+                placeholder={`Current : $${data.price}`}
                 min={1}
                 name="price"
                 onChange={(e) => onChange("price", e.target.value)}

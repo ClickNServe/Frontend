@@ -223,7 +223,10 @@ const Room = () => {
     <div className="relative">
       <div
         className={`transition-opacity duration-500 ${
-          showDeleteModal || showDetailModal || showUpdateModal
+          showDeleteModal ||
+          showDetailModal ||
+          showUpdateModal ||
+          showCreateReservation
             ? "opacity-50"
             : "opacity-100"
         }`}
@@ -273,7 +276,7 @@ const Room = () => {
         <UpdateRoomModal
           data={filteredData[selectedId]}
           onClose={handleCloseUpdateModal}
-          updateRoomData={updateFacilityData}
+          updateRoomData={updateRoomData}
           onChange={handleUpdateDataChange}
           onAction={handleUpdateAction}
         />
