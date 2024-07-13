@@ -6,6 +6,7 @@ import SearchBar from "../components/small/SearchBar";
 import BedTable from "../components/table/BedTable";
 import DeleteModal from "../components/modal/DeleteModal";
 import CreateBedModal from "../components/modal/create/CreateBedModal";
+import UpdateBedModal from "../components/modal/update/UpdateBedModal";
 
 const datas = () => {
   return [
@@ -67,7 +68,8 @@ const Bed = () => {
   const handleUpdateDataChange = (field, value) => {
     setUpdateBedData({ ...updateBedData, [field]: value });
   };
-  const handleUpdateClick = () => {
+  const handleUpdateClick = (id) => {
+    setSelectedId(id);
     setShowUpdateModal(true);
   };
   const handleCloseUpdateModal = () => {
@@ -123,7 +125,9 @@ const Bed = () => {
     <div className="relative">
       <div
         className={`transition-opacity duration-500 ${
-          showDeleteModal || showCreateModal ? "opacity-50" : "opacity-100"
+          showDeleteModal || showCreateModal || showUpdateModal
+            ? "opacity-50"
+            : "opacity-100"
         }`}
       >
         <div className="flex flex-col">
@@ -140,6 +144,7 @@ const Bed = () => {
               <BedTable
                 datas={filteredData}
                 onDeleteClick={handleDeleteClick}
+                onUpdateClick={handleUpdateClick}
               />
             </div>
           </div>
@@ -157,6 +162,15 @@ const Bed = () => {
           createBedData={createBedData}
           onChange={handleCreateDataChange}
           onAction={handleCreateAction}
+        />
+      )}
+      {showUpdateModal && (
+        <UpdateBedModal
+          data={filteredData[selectedId]}
+          onClose={handleCloseUpdateModal}
+          updateBedData={updateBedData}
+          onChange={handleUpdateDataChange}
+          onAction={handleUpdateAction}
         />
       )}
     </div>
