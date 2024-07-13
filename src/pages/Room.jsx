@@ -5,6 +5,8 @@ import SearchBar from "../components/small/SearchBar";
 import { faker } from "@faker-js/faker";
 import DeleteModal from "../components/modal/delete/DeleteModal";
 import DetailRoomModal from "../components/modal/read/DetailRoomModal";
+import UpdateRoomModal from "../components/modal/update/UpdateRoomModal";
+import CreateRoomModal from "../components/modal/create/CreateRoomModal";
 
 const datas = [
   {
@@ -90,35 +92,111 @@ const datas = [
 ];
 
 const Room = () => {
+  // modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showCreateReservation, setShowCreateReservation] = useState(false);
+
+  // data
+  const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
   const [roomData, setRoomData] = useState([]);
-  const [query, setQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [createRoomData, setCreateRoomData] = useState({
+    picture: "",
+    roomNumber: "",
+    pricePerNight: "",
+    availability: false,
+    facilities: [{ facilityName: "" }],
+    beds: [{ bedType: "" }],
+    sizeArea: "",
+  });
+  const [updateRoomData, setUpdateRoomData] = useState({
+    picture: "",
+    roomNumber: "",
+    pricePerNight: "",
+    availability: false,
+    facilities: [{ facilityName: "" }],
+    beds: [{ bedType: "" }],
+    sizeArea: "",
+  });
 
+  // create action
+  const handleCreateDataChange = (field, value) => {
+    setCreateRoomData({ ...createRoomData, [field]: value });
+  };
+  const handleCreateClick = () => {
+    setShowCreateModal(true);
+  };
+  const handleCloseCreateModal = () => {
+    setShowCreateModal(false);
+  };
+  const handleCreateAction = async () => {
+    setShowCreateModal(false);
+    resetCreateAction();
+  };
+  const resetCreateAction = () => {
+    setCreateRoomData({
+      picture: "",
+      roomNumber: "",
+      pricePerNight: "",
+      availability: false,
+      facilities: [{ facilityName: "" }],
+      beds: [{ bedType: "" }],
+      sizeArea: "",
+    });
+  };
+
+  // update action
+  const handleUpdateDataChange = (field, value) => {
+    setUpdateRoomData({ ...updateRoomData, [field]: value });
+  };
+  const handleUpdateClick = () => {
+    setShowUpdateModal(true);
+  };
+  const handleCloseUpdateModal = () => {
+    setShowUpdateModal(false);
+  };
+  const handleUpdateAction = async () => {
+    setShowUpdateModal(false);
+    resetUpdateAction();
+  };
+  const resetUpdateAction = () => {
+    setUpdateRoomData({
+      picture: "",
+      roomNumber: "",
+      pricePerNight: "",
+      availability: false,
+      facilities: [{ facilityName: "" }],
+      beds: [{ bedType: "" }],
+      sizeArea: "",
+    });
+  };
+
+  // delete action
   const handleDeleteClick = (id) => {
     setSelectedId(id);
     setShowDeleteModal(true);
   };
-
-  const handleDetailClick = (id) => {
-    setSelectedId(id);
-    setShowDetailModal(true);
-  };
-
-  const handleCloseDetailModal = () => {
-    setShowDetailModal(false);
-  };
-
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
   };
-
   const handleDeleteAction = async () => {
     setShowDeleteModal(false);
   };
 
+  // detail action
+  const handleDetailClick = (id) => {
+    setSelectedId(id);
+    setShowDetailModal(true);
+  };
+  const handleCloseDetailModal = () => {
+    setShowDetailModal(false);
+  };
+
+  // search action
   const handleSearch = (e) => {
     setQuery(e.target.value);
   };
@@ -145,13 +223,15 @@ const Room = () => {
     <div className="relative">
       <div
         className={`transition-opacity duration-500 ${
-          showDeleteModal || showDetailModal ? "opacity-50" : "opacity-100"
+          showDeleteModal || showDetailModal || showUpdateModal
+            ? "opacity-50"
+            : "opacity-100"
         }`}
       >
         <div className="flex flex-col">
           <div className="m-8">
             <div className="mb-4 flex justify-between">
-              <ButtonCreate message={"Room"} />
+              <ButtonCreate message={"Room"} createAction={handleCreateClick} />
               <SearchBar
                 query={query}
                 handleSearch={handleSearch}
@@ -163,6 +243,7 @@ const Room = () => {
                 datas={filteredData}
                 onDeleteClick={handleDeleteClick}
                 onDetailClick={handleDetailClick}
+                onUpdateClick={handleUpdateClick}
               />
             </div>
           </div>
@@ -178,6 +259,23 @@ const Room = () => {
         <DetailRoomModal
           onClose={handleCloseDetailModal}
           data={datas[selectedId]}
+        />
+      )}
+      {showCreateModal && (
+        <CreateRoomModal
+          onClose={handleCloseCreateModal}
+          createRoomData={createRoomData}
+          onChange={handleCreateDataChange}
+          onAction={handleCreateAction}
+        />
+      )}
+      {showUpdateModal && (
+        <UpdateRoomModal
+          data={filteredData[selectedId]}
+          onClose={handleCloseUpdateModal}
+          updateRoomData={updateFacilityData}
+          onChange={handleUpdateDataChange}
+          onAction={handleUpdateAction}
         />
       )}
     </div>

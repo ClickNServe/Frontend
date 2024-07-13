@@ -39,16 +39,14 @@ const DetailReservationModal = ({ data, onClose }) => {
             </div>
             <div className="text-md flex">
               <h1 className="font-bold">
-                Charge :{" "}
-                <span className="font-normal">${data.charge}</span>
+                Charge : <span className="font-normal">${data.charge}</span>
               </h1>
             </div>
           </div>
           <div className="grid grid-cols-2 my-3">
             <div className="text-md flex">
               <h1 className="font-bold">
-                Check In :{" "}
-                <span className="font-normal">{data.checkIn}</span>
+                Check In : <span className="font-normal">{data.checkIn}</span>
               </h1>
             </div>
             <div className="text-md flex">

@@ -2,7 +2,7 @@ import React from "react";
 import { roomAttribute } from "../../services/ContentList";
 import { tdStyle, thStyle } from "../../services/Helper";
 
-const RoomTable = ({ datas, onDeleteClick, onDetailClick }) => {
+const RoomTable = ({ datas, onDeleteClick, onDetailClick, onUpdateClick }) => {
   return (
     <div className="border rounded-lg shadow overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
@@ -40,7 +40,7 @@ const RoomTable = ({ datas, onDeleteClick, onDetailClick }) => {
                   </div>
                 )}
               </td>
-              <td className={tdStyle}> {data.sizeArea}m </td>
+              <td className={tdStyle}> {data.sizeArea}m² </td>
               <td className={tdStyle}>
                 <button
                   onClick={() => onDetailClick(index)}
@@ -50,6 +50,7 @@ const RoomTable = ({ datas, onDeleteClick, onDetailClick }) => {
                   Detail
                 </button>
                 <button
+                  onClick={() => onUpdateClick(index)}
                   type="button"
                   className="mx-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800"
                 >
