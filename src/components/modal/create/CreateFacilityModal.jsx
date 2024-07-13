@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaTimes } from "react-icons/fa";
 
-const CreateBedModal = ({ onClose, createBedData, onChange, onAction }) => {
+const CreateFacilityModal = ({
+  onClose,
+  createFacilityData,
+  onChange,
+  onAction,
+}) => {
   return (
     <div
       className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform popup-visible z-50`}
     >
       <div className="bg-white shadow-xl shadow-black rounded-xl w-11/12 md:w-2/5 p-6 relative z-10">
         <div className="flex justify-between items-center">
-          <p className="font-bold">Create Bed</p>
+          <p className="font-bold">Create Facility</p>
           <button
             type="button"
             className="border-0 bg-transparent focus:outline-none"
@@ -19,15 +24,15 @@ const CreateBedModal = ({ onClose, createBedData, onChange, onAction }) => {
         </div>
         <div className="mt-5">
           <div className="text-md my-5">
-            <label className="font-semibold">Bed Type</label>
+            <label className="font-semibold">Facility Name</label>
             <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
               <input
                 className="block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="text"
                 placeholder="Input your new bed type..."
-                name="bedType"
-                onChange={(e) => onChange("bedType", e.target.value)}
-                value={createBedData.bedType}
+                name="facilityName"
+                onChange={(e) => onChange("facilityName", e.target.value)}
+                value={createFacilityData.facilityName}
                 required
               />
             </div>
@@ -42,7 +47,7 @@ const CreateBedModal = ({ onClose, createBedData, onChange, onAction }) => {
                 min={1}
                 name="price"
                 onChange={(e) => onChange("price", e.target.value)}
-                value={createBedData.price}
+                value={createFacilityData.price}
                 required
               />
             </div>
@@ -61,4 +66,4 @@ const CreateBedModal = ({ onClose, createBedData, onChange, onAction }) => {
   );
 };
 
-export default CreateBedModal;
+export default CreateFacilityModal;

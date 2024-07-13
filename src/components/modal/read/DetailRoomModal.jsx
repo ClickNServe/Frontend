@@ -78,7 +78,7 @@ const DetailRoomModal = ({ onClose, data }) => {
         <div className="mt-4 flex justify-center items-center space-x-4">
         <button
             onClick={onClose}
-            className="transition-200 hover:scale-105 w-full font-bold shadow-sm rounded-lg py-4 text-white flex items-center justify-center transition-all duration-300 ease-in-out bg-blue-600"
+            className="transition-200 hover:scale-105 w-full font-bold shadow-sm rounded-lg py-4 text-white flex items-center justify-center transition-all duration-300 ease-in-out bg-indigo-600"
           >
             <span>Reserve</span>
           </button>

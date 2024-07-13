@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import OrderTable from "../components/table/OrderTable";
 import SearchBar from "../components/small/SearchBar";
-import ButtonCreate from "../components/small/ButtonCreate";
-import DetailReservationModal from "../components/modal/DetailReservationModal";
+import DetailReservationModal from "../components/modal/read/DetailReservationModal";
 
 const datas = [
   {

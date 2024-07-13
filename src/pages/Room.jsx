@@ -3,8 +3,8 @@ import ButtonCreate from "../components/small/ButtonCreate";
 import RoomTable from "../components/table/RoomTable";
 import SearchBar from "../components/small/SearchBar";
 import { faker } from "@faker-js/faker";
-import DeleteModal from "../components/modal/DeleteModal";
-import DetailRoomModal from "../components/modal/DetailRoomModal";
+import DeleteModal from "../components/modal/delete/DeleteModal";
+import DetailRoomModal from "../components/modal/read/DetailRoomModal";
 
 const datas = [
   {

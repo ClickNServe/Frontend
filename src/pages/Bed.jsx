@@ -4,7 +4,7 @@ import { tdStyle, thStyle } from "../services/Helper";
 import ButtonCreate from "../components/small/ButtonCreate";
 import SearchBar from "../components/small/SearchBar";
 import BedTable from "../components/table/BedTable";
-import DeleteModal from "../components/modal/DeleteModal";
+import DeleteModal from "../components/modal/delete/DeleteModal";
 import CreateBedModal from "../components/modal/create/CreateBedModal";
 import UpdateBedModal from "../components/modal/update/UpdateBedModal";
 
