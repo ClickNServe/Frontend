@@ -11,7 +11,7 @@ import UpdateRoom from "./components/modal/update/UpdateRoom";
 import CreateRoom from "./components/modal/create/CreateRoom";
 import UpdateFacility from "./components/modal/update/UpdateFacility";
 import CreateFacility from "./components/modal/create/CreateFacility";
-import UpdateBed from "./components/modal/update/UpdateBed";
+import UpdateBed from "./components/modal/update/UpdateBedModal";
 import CreateBed from "./components/modal/create/CreateBedModal";
 import CreateReservation from "./components/modal/create/CreateReservation";
 

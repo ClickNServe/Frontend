@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaTimes } from "react-icons/fa";
 
-const CreateBedModal = ({ onClose, createBedData, onChange, onAction }) => {
+const UpdateBedModal = ({ onClose, updateBedData, onChange, onAction }) => {
   return (
     <div
       className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform popup-visible z-50`}
@@ -61,4 +61,4 @@ const CreateBedModal = ({ onClose, createBedData, onChange, onAction }) => {
   );
 };
 
-export default CreateBedModal;
+export default UpdateBedModal;

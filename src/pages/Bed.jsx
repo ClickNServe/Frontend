@@ -26,13 +26,18 @@ const Bed = () => {
   // modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   // data
+  const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
   const [bedData, setBedData] = useState([]);
-  const [query, setQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [createBedData, setCreateBedData] = useState({
+    bedType: "",
+    price: "",
+  });
+  const [updateBedData, setUpdateBedData] = useState({
     bedType: "",
     price: "",
   });
@@ -49,6 +54,34 @@ const Bed = () => {
   };
   const handleCreateAction = async () => {
     setShowCreateModal(false);
+    resetCreateAction();
+  };
+  const resetCreateAction = () => {
+    setCreateBedData({
+      bedType: "",
+      price: "",
+    });
+  };
+
+  // update action
+  const handleUpdateDataChange = (field, value) => {
+    setUpdateBedData({ ...updateBedData, [field]: value });
+  };
+  const handleUpdateClick = () => {
+    setShowUpdateModal(true);
+  };
+  const handleCloseUpdateModal = () => {
+    setShowUpdateModal(false);
+  };
+  const handleUpdateAction = async () => {
+    setShowUpdateModal(false);
+    resetUpdateAction();
+  };
+  const resetUpdateAction = () => {
+    setUpdateBedData({
+      bedType: "",
+      price: "",
+    });
   };
 
   // delete action
