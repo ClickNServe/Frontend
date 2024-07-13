@@ -4,6 +4,7 @@ import RoomTable from "../components/table/RoomTable";
 import SearchBar from "../components/small/SearchBar";
 import { faker } from "@faker-js/faker";
 import DeleteModal from "../components/modal/DeleteModal";
+import DetailRoomModal from "../components/modal/DetailRoomModal";
 
 const datas = [
   {
@@ -89,7 +90,8 @@ const datas = [
 ];
 
 const Room = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const [roomData, setRoomData] = useState([]);
   const [query, setQuery] = useState("");
@@ -97,15 +99,24 @@ const Room = () => {
 
   const handleDeleteClick = (id) => {
     setSelectedId(id);
-    setShowModal(true);
+    setShowDeleteModal(true);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleDetailClick = (id) => {
+    setSelectedId(id);
+    setShowDetailModal(true);
+  };
+
+  const handleCloseDetailModal = () => {
+    setShowDetailModal(false);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
   };
 
   const handleDeleteAction = async () => {
-    setShowModal(false);
+    setShowDeleteModal(false);
   };
 
   const handleSearch = (e) => {
@@ -134,7 +145,7 @@ const Room = () => {
     <div className="relative">
       <div
         className={`transition-opacity duration-500 ${
-          showModal ? "opacity-50" : "opacity-100"
+          showDeleteModal || showDetailModal ? "opacity-50" : "opacity-100"
         }`}
       >
         <div className="flex flex-col">
@@ -147,17 +158,27 @@ const Room = () => {
                 message={"room number"}
               />
             </div>
-            <div class="min-w-full inline-block align-middle">
+            <div className="min-w-full inline-block align-middle">
               <RoomTable
                 datas={filteredData}
                 onDeleteClick={handleDeleteClick}
+                onDetailClick={handleDetailClick}
               />
             </div>
           </div>
         </div>
       </div>
-      {showModal && (
-        <DeleteModal onClose={handleCloseModal} onDelete={handleDeleteAction} />
+      {showDeleteModal && (
+        <DeleteModal
+          onClose={handleCloseDeleteModal}
+          onDelete={handleDeleteAction}
+        />
+      )}
+      {showDetailModal && (
+        <DetailRoomModal
+          onClose={handleCloseDetailModal}
+          data={datas[selectedId]}
+        />
       )}
     </div>
   );

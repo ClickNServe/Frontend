@@ -7,11 +7,13 @@ const FacilityTable = ({ datas, onDeleteClick }) => {
     <div className="border rounded-lg shadow overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-indigo-500">
-          {facilityAttribute.map((content, index) => (
-            <th key={index} scope="col" className={thStyle}>
-              {content.name}
-            </th>
-          ))}
+          <tr>
+            {facilityAttribute.map((content, index) => (
+              <th key={index} scope="col" className={thStyle}>
+                {content.name}
+              </th>
+            ))}
+          </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 text-center">
           {datas.map((data, index) => (
