@@ -2,7 +2,7 @@ import React from "react";
 import { tdStyle, thStyle } from "../../services/Helper";
 import { orderAttribute } from "../../services/ContentList";
 
-const OrderTable = ({ datas }) => {
+const OrderTable = ({ datas, onDetailClick }) => {
   return (
     <div className="border rounded-lg shadow overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
@@ -25,6 +25,7 @@ const OrderTable = ({ datas }) => {
               <td className={tdStyle}> Rp. {data.charge} </td>
               <td className={tdStyle}>
                 <button
+                  onClick={() => onDetailClick(index)}
                   type="button"
                   className="mr-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800"
                 >

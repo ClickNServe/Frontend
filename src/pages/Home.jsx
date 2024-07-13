@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import OrderTable from "../components/table/OrderTable";
 import SearchBar from "../components/small/SearchBar";
 import ButtonCreate from "../components/small/ButtonCreate";
-import { faker } from "@faker-js/faker";
-import DeleteModal from "../components/modal/DeleteModal";
+import DetailReservationModal from "../components/modal/DetailReservationModal";
 
 const datas = [
   {
@@ -109,6 +108,15 @@ const Home = () => {
     setQuery(e.target.value);
   };
 
+  const handleCloseDetailModal = () => {
+    setShowModal(false);
+  };
+
+  const handleDetailClick = (id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       if (datas) {
@@ -148,11 +156,20 @@ const Home = () => {
               />
             </div>
             <div class="min-w-full inline-block align-middle">
-              <OrderTable datas={filteredData} />
+              <OrderTable
+                datas={filteredData}
+                onDetailClick={handleDetailClick}
+              />
             </div>
           </div>
         </div>
       </div>
+      {showModal && (
+        <DetailReservationModal
+          onClose={handleCloseDetailModal}
+          data={datas[selectedId]}
+        />
+      )}
     </div>
   );
 };
