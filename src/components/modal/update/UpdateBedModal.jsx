@@ -30,9 +30,9 @@ const UpdateBedModal = ({
               <input
                 className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="text"
-                placeholder={`Current : ${data.bedType}`}
+                placeholder={`Current : ${data.bedtype}`}
                 name="bedType"
-                onChange={(e) => onChange("bedType", e.target.value)}
+                onChange={(e) => onChange("bedtype", e.target.value)}
                 value={updateBedData.bedType}
                 required
               />

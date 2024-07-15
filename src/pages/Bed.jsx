@@ -7,21 +7,8 @@ import BedTable from "../components/table/BedTable";
 import DeleteModal from "../components/modal/delete/DeleteModal";
 import CreateBedModal from "../components/modal/create/CreateBedModal";
 import UpdateBedModal from "../components/modal/update/UpdateBedModal";
-
-const datas = () => {
-  return [
-    { bedType: "Single", price: 100.0 },
-    { bedType: "Double", price: 150.0 },
-    { bedType: "Queen", price: 200.0 },
-    { bedType: "King", price: 250.0 },
-    { bedType: "Twin", price: 75.0 },
-    { bedType: "Full", price: 175.0 },
-    { bedType: "California King", price: 300.0 },
-    { bedType: "Bunk", price: 125.0 },
-    { bedType: "Murphy", price: 200.0 },
-    { bedType: "Daybed", price: 180.0 },
-  ];
-};
+import axios from "axios";
+import { API_URL } from "../services/Config";
 
 const Bed = () => {
   // modal
@@ -32,14 +19,15 @@ const Bed = () => {
   // data
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
+  const [selectedBedId, setSelectedBedId] = useState("");
   const [bedData, setBedData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [createBedData, setCreateBedData] = useState({
-    bedType: "",
+    bedtype: "",
     price: "",
   });
   const [updateBedData, setUpdateBedData] = useState({
-    bedType: "",
+    bedtype: "",
     price: "",
   });
 
@@ -54,12 +42,31 @@ const Bed = () => {
     setShowCreateModal(false);
   };
   const handleCreateAction = async () => {
+    console.log(createBedData);
+    const postData = async () => {
+      try {
+        const formattedData = {
+          ...createBedData,
+          price: parseFloat(createBedData.price),
+        };
+        const res = await axios.post(
+          `${API_URL}/create_new_bed`,
+          formattedData
+        );
+        if (res === 200) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    postData();
     setShowCreateModal(false);
     resetCreateAction();
   };
   const resetCreateAction = () => {
     setCreateBedData({
-      bedType: "",
+      bedtype: "",
       price: "",
     });
   };
@@ -68,33 +75,64 @@ const Bed = () => {
   const handleUpdateDataChange = (field, value) => {
     setUpdateBedData({ ...updateBedData, [field]: value });
   };
-  const handleUpdateClick = (id) => {
-    setSelectedId(id);
+  const handleUpdateClick = (index, bedId) => {
+    setSelectedId(index);
+    setSelectedBedId(bedId)
     setShowUpdateModal(true);
   };
   const handleCloseUpdateModal = () => {
     setShowUpdateModal(false);
   };
   const handleUpdateAction = async () => {
+    const updateData = async () => {
+      try {
+        const formattedData = {
+          ...updateBedData,
+          price: parseFloat(updateBedData.price)
+        };
+        const res = await axios.patch(`${API_URL}/update_bed/${selectedBedId}`, formattedData)
+        if (res.status === 200) {
+          console.log(res)
+        }
+      }
+      catch (error) {
+        console.log(error.response);
+      }
+
+    }
+    updateData();
     setShowUpdateModal(false);
     resetUpdateAction();
   };
   const resetUpdateAction = () => {
     setUpdateBedData({
-      bedType: "",
+      bedtype: "",
       price: "",
     });
   };
 
   // delete action
-  const handleDeleteClick = (id) => {
-    setSelectedId(id);
+  const handleDeleteClick = (index, bedId) => {
+    setSelectedId(index);
+    setSelectedBedId(bedId);
     setShowDeleteModal(true);
   };
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
   };
   const handleDeleteAction = async () => {
+    const deleteData = async () => {
+      try {
+        const res = await axios.delete(`${API_URL}/delete_bed/${selectedBedId}`)
+        if (res.status === 200) {
+          console.log(res)
+        }
+      }
+      catch (error) {
+        console.log(error.response)
+      }
+    }
+    deleteData()
     setShowDeleteModal(false);
   };
 
@@ -105,19 +143,26 @@ const Bed = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (datas) {
-        setBedData(datas);
+      try {
+        const res = await axios.get(`${API_URL}/all_beds`);
+        if (res.status === 200) {
+          setBedData(res?.data);
+          console.log(bedData);
+        }
+      } catch (error) {
+        console.log(error.respones);
       }
     };
     fetchData();
-  }, []);
+  }, [bedData]);
 
   useEffect(() => {
     if (bedData) {
       const filtered = bedData.filter((data) =>
-        data.bedType.toLowerCase().includes(query.toLowerCase())
+        data.bedtype && data.bedtype.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredData(filtered);
+      console.log(filteredData)
     }
   }, [query, bedData]);
 

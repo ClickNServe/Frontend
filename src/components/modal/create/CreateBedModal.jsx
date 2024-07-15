@@ -26,7 +26,7 @@ const CreateBedModal = ({ onClose, createBedData, onChange, onAction }) => {
                 type="text"
                 placeholder="Input your new bed type..."
                 name="bedType"
-                onChange={(e) => onChange("bedType", e.target.value)}
+                onChange={(e) => onChange("bedtype", e.target.value)}
                 value={createBedData.bedType}
                 required
               />
