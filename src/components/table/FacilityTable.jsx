@@ -1,5 +1,5 @@
 import React from "react";
-import { bedAttribute, facilityAttribute } from "../../services/ContentList";
+import { facilityAttribute } from "../../services/ContentList";
 import { tdStyle, thStyle } from "../../services/Helper";
 
 const FacilityTable = ({ datas, onDeleteClick, onUpdateClick }) => {
@@ -19,18 +19,18 @@ const FacilityTable = ({ datas, onDeleteClick, onUpdateClick }) => {
           {datas.map((data, index) => (
             <tr key={index}>
               <td className={tdStyle}> {index + 1} </td>
-              <td className={tdStyle}> {data.facilityName} </td>
+              <td className={tdStyle}> {data.facilityname} </td>
               <td className={tdStyle}> ${data.price} </td>
               <td className={tdStyle}>
                 <button
-                  onClick={() => onUpdateClick(index)}
+                  onClick={() => onUpdateClick(index, data.id)}
                   type="button"
                   className="mr-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => onDeleteClick(index)}
+                  onClick={() => onDeleteClick(index, data.id)}
                   type="button"
                   className="ml-1 inline-flex items-center text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800"
                 >

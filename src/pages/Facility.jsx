@@ -2,23 +2,11 @@ import React, { useEffect, useState } from "react";
 import FacilityTable from "../components/table/FacilityTable";
 import SearchBar from "../components/small/SearchBar";
 import ButtonCreate from "../components/small/ButtonCreate";
-import { faker } from "@faker-js/faker";
 import DeleteModal from "../components/modal/delete/DeleteModal";
 import CreateFacilityModal from "../components/modal/create/CreateFacilityModal";
 import UpdateFacilityModal from "../components/modal/update/UpdateFacilityModal";
-
-const datas = [
-  { facilityName: "Wi-Fi", price: 0.0 },
-  { facilityName: "Television", price: 0.0 },
-  { facilityName: "Air Conditioning", price: 0.0 },
-  { facilityName: "Mini Bar", price: 50.0 },
-  { facilityName: "Room Service", price: 30.0 },
-  { facilityName: "Coffee Maker", price: 20.0 },
-  { facilityName: "Safe", price: 0.0 },
-  { facilityName: "Hair Dryer", price: 0.0 },
-  { facilityName: "Bathrobe", price: 10.0 },
-  { facilityName: "Iron and Ironing Board", price: 0.0 },
-];
+import { API_URL } from "../services/Config";
+import axios from "axios";
 
 const Facility = () => {
   // modal
@@ -29,14 +17,15 @@ const Facility = () => {
   // data
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
+  const [selectedFacilityId, setSelectedFacilityId] = useState("");
   const [facilityData, setFacilityData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [createFacilityData, setCreateFacilityData] = useState({
-    facilityName: "",
+    facilityname: "",
     price: "",
   });
   const [updateFacilityData, setUpdateFacilityData] = useState({
-    facilityName: "",
+    facilityname: "",
     price: "",
   });
 
@@ -51,12 +40,32 @@ const Facility = () => {
     setShowCreateModal(false);
   };
   const handleCreateAction = async () => {
+    const postData = async () => {
+      try {
+        const formattedData = {
+          ...createFacilityData,
+          price: parseFloat(createFacilityData.price),
+        };
+        console.log(formattedData);
+        const res = await axios.post(
+          `${API_URL}/create_new_facility`,
+          formattedData
+        );
+        console.log(res);
+        if (res.status === 200) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    postData();
     setShowCreateModal(false);
     resetCreateAction();
   };
   const resetCreateAction = () => {
     setCreateFacilityData({
-      facilityName: "",
+      facilityname: "",
       price: "",
     });
   };
@@ -65,33 +74,66 @@ const Facility = () => {
   const handleUpdateDataChange = (field, value) => {
     setUpdateFacilityData({ ...updateFacilityData, [field]: value });
   };
-  const handleUpdateClick = (id) => {
-    setSelectedId(id);
+  const handleUpdateClick = (index, facilityId) => {
+    setSelectedId(index);
+    setSelectedFacilityId(facilityId);
     setShowUpdateModal(true);
   };
   const handleCloseUpdateModal = () => {
     setShowUpdateModal(false);
   };
   const handleUpdateAction = async () => {
+    const updateData = async () => {
+      try {
+        const formattedData = {
+          ...updateFacilityData,
+          price: parseFloat(updateFacilityData.price),
+        };
+        const res = await axios.patch(
+          `${API_URL}/update_facility/${selectedFacilityId}`,
+          formattedData
+        );
+        if (res.status === 200) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    updateData();
     setShowUpdateModal(false);
     resetUpdateAction();
   };
   const resetUpdateAction = () => {
     setUpdateBedData({
-      facilityName: "",
+      facilityname: "",
       price: "",
     });
   };
 
   // delete action
-  const handleDeleteClick = (id) => {
-    setSelectedId(id);
+  const handleDeleteClick = (index, facilityId) => {
+    setSelectedId(index);
+    setSelectedFacilityId(facilityId);
     setShowDeleteModal(true);
   };
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
   };
   const handleDeleteAction = async () => {
+    const deleteData = async () => {
+      try {
+        const res = await axios.delete(
+          `${API_URL}/delete_facility/${selectedFacilityId}`
+        );
+        if (res.status === 200) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    deleteData();
     setShowDeleteModal(false);
   };
 
@@ -102,17 +144,25 @@ const Facility = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (datas) {
-        setFacilityData(datas);
+      try {
+        const res = await axios.get(`${API_URL}/all_facilities`);
+        if (res.status === 200) {
+          setFacilityData(res?.data);
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
       }
     };
     fetchData();
-  }, []);
+  }, [facilityData]);
 
   useEffect(() => {
     if (facilityData) {
-      const filtered = facilityData.filter((data) =>
-        data.facilityName.toLowerCase().includes(query.toLowerCase())
+      const filtered = facilityData.filter(
+        (data) =>
+          data.facilityname &&
+          data.facilityname.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredData(filtered);
     }
@@ -127,8 +177,8 @@ const Facility = () => {
             : "opacity-100"
         }`}
       >
-        <div class="flex flex-col">
-          <div class="m-8">
+        <div className="flex flex-col">
+          <div className="m-8">
             <div className="mb-4 flex justify-between">
               <ButtonCreate
                 message={"Facility"}
@@ -140,7 +190,7 @@ const Facility = () => {
                 message={"facility name"}
               />
             </div>
-            <div class="min-w-full inline-block align-middle">
+            <div className="min-w-full inline-block align-middle">
               <FacilityTable
                 datas={filteredData}
                 onDeleteClick={handleDeleteClick}

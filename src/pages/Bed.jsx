@@ -53,7 +53,7 @@ const Bed = () => {
           `${API_URL}/create_new_bed`,
           formattedData
         );
-        if (res === 200) {
+        if (res.status === 200) {
           console.log(res);
         }
       } catch (error) {

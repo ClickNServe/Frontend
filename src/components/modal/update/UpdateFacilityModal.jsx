@@ -30,10 +30,10 @@ const UpdateFacilityModal = ({
               <input
                 className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                 type="text"
-                placeholder={`Current : ${data.facilityName}`}
+                placeholder={`Current : ${data.facilityname}`}
                 name="facilityName"
-                onChange={(e) => onChange("facilityName", e.target.value)}
-                value={updateFacilityData.facilityName}
+                onChange={(e) => onChange("facilityname", e.target.value)}
+                value={updateFacilityData.facilityname}
                 required
               />
             </div>

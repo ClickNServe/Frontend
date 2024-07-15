@@ -31,8 +31,8 @@ const CreateFacilityModal = ({
                 type="text"
                 placeholder="Input your new bed type..."
                 name="facilityName"
-                onChange={(e) => onChange("facilityName", e.target.value)}
-                value={createFacilityData.facilityName}
+                onChange={(e) => onChange("facilityname", e.target.value)}
+                value={createFacilityData.facilityname}
                 required
               />
             </div>
