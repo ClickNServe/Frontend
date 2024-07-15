@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ButtonCreate from "../components/small/ButtonCreate";
 import RoomTable from "../components/table/RoomTable";
 import SearchBar from "../components/small/SearchBar";
-import { faker } from "@faker-js/faker";
 import DeleteModal from "../components/modal/delete/DeleteModal";
 import DetailRoomModal from "../components/modal/read/DetailRoomModal";
 import UpdateRoomModal from "../components/modal/update/UpdateRoomModal";
@@ -10,6 +9,7 @@ import CreateRoomModal from "../components/modal/create/CreateRoomModal";
 import CreateReservationModal from "../components/modal/create/CreateReservationModal";
 import axios from "axios";
 import { API_URL } from "../services/Config";
+import { countTotalCharge } from "../services/Helper";
 
 const Room = () => {
   // modal
@@ -47,13 +47,13 @@ const Room = () => {
     sizearea: "",
   });
   const [createReservationData, setCreateReservationData] = useState({
+    roomId: "",
     name: "",
     contact: "",
-    roomNumber: "",
     checkIn: "",
     checkOut: "",
     orderTime: "",
-    charge: "",
+    totalCharge: "",
   });
 
   // create action
@@ -190,6 +190,10 @@ const Room = () => {
   };
 
   // reserve action
+  const counter = () => {
+    const room = roomData.find((item) => item.id === selectedRoomId);
+    return room.pricepernight;
+  };
   const handleReserveDataChange = (field, value) => {
     setCreateReservationData({ ...createReservationData, [field]: value });
   };
@@ -201,10 +205,30 @@ const Room = () => {
     setShowCreateReservationModal(false);
   };
   const handleReserveAction = async () => {
+    console.log(createReservationData)
     const postData = async () => {
       try {
+        const formattedData = {
+          ...createReservationData,
+          roomId: "selectedRoomId",
+          totalCharge: parseFloat(
+            countTotalCharge(
+              createReservationData.checkIn,
+              createReservationData.checkOut
+            ) * counter()
+          ),
+          checkIn: parseString(
+            new Date(createReservationData.checkIn).getTime() / 1000
+          ),
+          checkOut: parseString(
+            new Date(createReservationData.checkOut).getTime() / 1000
+          ),
+          orderTime: parseString(new Date().getTime() / 1000),
+        };
+        console.log(formattedData)
         const res = await axios.post(
-          `${API_URL}/reserve_room/${selectedRoomId}`
+          `${API_URL}/reserve_room/${selectedRoomId}`,
+          createReservationData
         );
         if (res.status === 200) {
           console.log(res);
@@ -221,11 +245,11 @@ const Room = () => {
     setCreateReservationData({
       name: "",
       contact: "",
-      roomNumber: "",
+      roomId: "",
       checkIn: "",
       checkOut: "",
       orderTime: "",
-      charge: "",
+      totalCharge: "",
     });
     setSelectedRoomId("");
   };

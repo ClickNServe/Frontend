@@ -7,4 +7,15 @@ const activeLink =
 const nonActiveLink =
   "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-gray-700 text-md hover:bg-light-gray";
 
-export { tdStyle, thStyle, activeLink, nonActiveLink };
+const countTotalCharge = (checkIn, checkOut) => {
+  const checkInTimestamp = new Date(checkIn).getTime() / 1000;
+  const checkOutTimestamp = new Date(checkOut).getTime() / 1000;
+
+  const secondPerDay = 24 * 60 * 60;
+  const stayDuration = checkOutTimestamp - checkInTimestamp;
+  const numberOfDays = Math.ceil(stayDuration / secondPerDay);
+
+  return numberOfDays;
+};
+
+export { tdStyle, thStyle, activeLink, nonActiveLink, countTotalCharge };

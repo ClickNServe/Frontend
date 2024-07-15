@@ -1,5 +1,6 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+import { countTotalCharge } from "../../../services/Helper";
 
 const CreateReservationModal = ({
   data,
@@ -15,7 +16,7 @@ const CreateReservationModal = ({
       <div className="bg-white shadow-xl shadow-black rounded-xl w-11/12 md:w-2/5 p-6 relative z-10">
         <div className="flex justify-between items-center">
           <p className="font-bold">
-            Create Reservation ({data.roomNumber} - ${data.pricePerNight}/night){" "}
+            Create Reservation ({data.roomnumber} - ${data.pricepernight}/night){" "}
           </p>
           <button
             type="button"
@@ -90,18 +91,11 @@ const CreateReservationModal = ({
             </div>
           </div>
           <div className="text-md my-5">
-            <label className="font-semibold">Charge : </label>
+            <label className="font-semibold"> Total Charge : </label>
             <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
-              <input
-                className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
-                type="number"
-                placeholder="Input charge..."
-                min={1}
-                name="price"
-                onChange={(e) => onChange("charge", e.target.value)}
-                value={createReservationData.charge}
-                required
-              />
+              <div className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent">
+                $ {countTotalCharge(createReservationData.checkIn, createReservationData.checkOut) * data.pricepernight}
+              </div>
             </div>
           </div>
         </div>
