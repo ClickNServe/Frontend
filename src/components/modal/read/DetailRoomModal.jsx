@@ -1,7 +1,16 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 
-const DetailRoomModal = ({ onClose, data, onReserve }) => {
+const DetailRoomModal = ({
+  onClose,
+  data,
+  onReserve,
+  bedData,
+  facilityData,
+}) => {
+  const roomBed = bedData.filter((bed) => data.bedId.includes(bed.id));
+  const roomFacility = facilityData.filter((facility) => data.facilityId.includes(facility.id));
+
   return (
     <div
       className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform popup-visible z-50`}
@@ -19,7 +28,7 @@ const DetailRoomModal = ({ onClose, data, onReserve }) => {
         </div>
         <div className="flex justify-center items-center mt-5">
           <div className="rounded-lg overflow-hidden w-40 h-28">
-            <img src={data.picture} alt={data.roomNumber} />
+            <img src={data.picture} alt={data.roomnumber} />
           </div>
         </div>
         <div className="mt-5">
@@ -27,12 +36,13 @@ const DetailRoomModal = ({ onClose, data, onReserve }) => {
             <div className="text-md flex">
               <h1 className="font-bold">
                 Room Number :{" "}
-                <span className="font-normal">{data.roomNumber}</span>
+                <span className="font-normal">{data.roomnumber}</span>
               </h1>
             </div>
             <div className="text-md flex">
               <h1 className="font-bold">
-                Floor : <span className="font-normal">{data.floor}</span>
+                Size Area :{" "}
+                <span className="font-normal">{data.sizearea}m²</span>
               </h1>
             </div>
           </div>
@@ -40,7 +50,7 @@ const DetailRoomModal = ({ onClose, data, onReserve }) => {
             <div className="text-md flex">
               <h1 className="font-bold">
                 Price Per Night :{" "}
-                <span className="font-normal">${data.pricePerNight}</span>
+                <span className="font-normal">${data.pricepernight}</span>
               </h1>
             </div>
             <div className="text-md flex">
@@ -56,26 +66,22 @@ const DetailRoomModal = ({ onClose, data, onReserve }) => {
             <div className="text-md">
               <h1 className="font-bold">Facilities :</h1>
               <ul className="list-disc pl-5">
-                <li>TV</li>
-                <li>Bathub</li>
-                <li>Mini Spa</li>
+                {roomFacility.map((facility) => (
+                  <li key={facility.id}> {facility.facilityname} </li>
+                ))}
               </ul>
             </div>
             <div className="text-md">
               <h1 className="font-bold">Beds :</h1>
               <ul className="list-disc pl-5">
-                <li>2 Queen Bed</li>
-                <li>1 King Bed</li>
+                {roomBed.map((bed) => (
+                  <li key={bed.id}> {bed.bedtype} </li>
+                ))}
               </ul>
             </div>
           </div>
-          <div className="text-md my-4 flex">
-            <h1 className="font-bold">
-              Size Area : <span className="font-normal">{data.sizeArea}m²</span>
-            </h1>
-          </div>
         </div>
-        <div className="mt-4 flex justify-center items-center space-x-4">
+        <div className="mt-6 flex justify-center items-center space-x-4">
           <button
             onClick={onReserve}
             className="transition-200 hover:scale-105 w-full font-bold shadow-sm rounded-lg py-4 text-white flex items-center justify-center transition-all duration-300 ease-in-out bg-indigo-600"

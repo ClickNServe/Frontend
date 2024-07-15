@@ -32,19 +32,19 @@ const Room = () => {
     picture: "",
     roomnumber: "",
     pricepernight: "",
-    availability: false,
+    availability: true,
     facilityId: [],
     bedId: [],
     sizearea: "",
   });
   const [updateRoomData, setUpdateRoomData] = useState({
     picture: "",
-    roomNumber: "",
-    pricePerNight: "",
-    availability: false,
-    facilities: [{ facilityName: "" }],
-    beds: [{ bedType: "" }],
-    sizeArea: "",
+    roomnumber: "",
+    pricepernight: "",
+    availability: true,
+    facilityId: [],
+    bedId: [],
+    sizearea: "",
   });
   const [createReservationData, setCreateReservationData] = useState({
     name: "",
@@ -67,6 +67,28 @@ const Room = () => {
     setShowCreateModal(false);
   };
   const handleCreateAction = async () => {
+    const postData = async () => {
+      console.log(createRoomData);
+      try {
+        const formattedData = {
+          ...createRoomData,
+          pricepernight: parseFloat(createRoomData.pricepernight),
+          sizearea: parseFloat(createRoomData.sizearea),
+          roomnumber: parseInt(createRoomData.roomnumber),
+        };
+        console.log(formattedData);
+        const res = await axios.post(
+          `${API_URL}/create_new_room`,
+          formattedData
+        );
+        if (res.status === 200) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    postData();
     setShowCreateModal(false);
     resetCreateAction();
   };
@@ -75,7 +97,7 @@ const Room = () => {
       picture: "",
       roomnumber: "",
       pricepernight: "",
-      availability: false,
+      availability: true,
       facilityId: [],
       bedId: [],
       sizearea: "",
@@ -86,44 +108,81 @@ const Room = () => {
   const handleUpdateDataChange = (field, value) => {
     setUpdateRoomData({ ...updateRoomData, [field]: value });
   };
-  const handleUpdateClick = (id) => {
-    setSelectedId(id);
+  const handleUpdateClick = (index, roomId) => {
+    setSelectedId(index);
+    setSelectedRoomId(roomId);
     setShowUpdateModal(true);
   };
   const handleCloseUpdateModal = () => {
     setShowUpdateModal(false);
   };
   const handleUpdateAction = async () => {
+    const updateData = async () => {
+      try {
+        const formattedData = {
+          ...updateRoomData,
+          pricepernight: parseFloat(updateRoomData.pricepernight),
+          sizearea: parseFloat(updateRoomData.sizearea),
+          roomnumber: parseInt(updateRoomData.roomnumber),
+        };
+        console.log(formattedData);
+        const res = await axios.patch(
+          `${API_URL}/update_room/${selectedRoomId}`,
+          formattedData
+        );
+        if (res.status === 200) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    updateData();
     setShowUpdateModal(false);
     resetUpdateAction();
   };
   const resetUpdateAction = () => {
     setUpdateRoomData({
       picture: "",
-      roomNumber: "",
-      pricePerNight: "",
-      availability: false,
-      facilities: [{ facilityName: "" }],
-      beds: [{ bedType: "" }],
-      sizeArea: "",
+      roomnumber: "",
+      pricepernight: "",
+      availability: true,
+      facilityId: [],
+      bedId: [],
+      sizearea: "",
     });
   };
 
   // delete action
-  const handleDeleteClick = (id) => {
-    setSelectedId(id);
+  const handleDeleteClick = (index, roomId) => {
+    setSelectedId(index);
+    setSelectedRoomId(roomId);
     setShowDeleteModal(true);
   };
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
   };
   const handleDeleteAction = async () => {
+    const deleteData = async () => {
+      try {
+        const res = await axios.delete(
+          `${API_URL}/delete_room/${selectedRoomId}`
+        );
+        if (res.status === 200) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    deleteData();
     setShowDeleteModal(false);
   };
 
   // detail action
-  const handleDetailClick = (id) => {
-    setSelectedId(id);
+  const handleDetailClick = (index, roomId) => {
+    setSelectedId(index);
+    setSelectedRoomId(roomId);
     setShowDetailModal(true);
   };
   const handleCloseDetailModal = () => {
@@ -142,6 +201,19 @@ const Room = () => {
     setShowCreateReservationModal(false);
   };
   const handleReserveAction = async () => {
+    const postData = async () => {
+      try {
+        const res = await axios.post(
+          `${API_URL}/reserve_room/${selectedRoomId}`
+        );
+        if (res.status === 200) {
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    postData();
     setShowCreateReservationModal(false);
     resetReserveAction();
   };
@@ -155,6 +227,7 @@ const Room = () => {
       orderTime: "",
       charge: "",
     });
+    setSelectedRoomId("");
   };
 
   // search action
@@ -189,17 +262,22 @@ const Room = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (datas) {
-        setRoomData(datas);
+      try {
+        const res = await axios.get(`${API_URL}/all_rooms`);
+        if (res.status === 200) {
+          setRoomData(res?.data);
+        }
+      } catch (error) {
+        console.log(error.response);
       }
     };
     fetchData();
-  }, []);
+  }, [roomData]);
 
   useEffect(() => {
     if (roomData) {
       const filtered = roomData.filter((data) =>
-        data.roomNumber.toString().includes(query)
+        data.roomnumber.toString().includes(query)
       );
       setFilteredData(filtered);
     }
@@ -247,8 +325,10 @@ const Room = () => {
       {showDetailModal && (
         <DetailRoomModal
           onClose={handleCloseDetailModal}
-          data={datas[selectedId]}
+          data={filteredData[selectedId]}
           onReserve={handleReserveClick}
+          bedData={bedData}
+          facilityData={facilityData}
         />
       )}
       {showCreateModal && (
@@ -263,6 +343,8 @@ const Room = () => {
       )}
       {showUpdateModal && (
         <UpdateRoomModal
+          bedOption={bedData}
+          facilityOption={facilityData}
           data={filteredData[selectedId]}
           onClose={handleCloseUpdateModal}
           updateRoomData={updateRoomData}

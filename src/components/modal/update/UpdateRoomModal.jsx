@@ -1,5 +1,7 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+import Select from "react-select";
+
 
 const UpdateRoomModal = ({
   data,
@@ -7,7 +9,11 @@ const UpdateRoomModal = ({
   updateRoomData,
   onChange,
   onAction,
+  bedOption,
+  facilityOption,
 }) => {
+  console.log(bedOption);
+  console.log(facilityOption);
   return (
     <div
       className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform popup-visible z-50`}
@@ -57,27 +63,27 @@ const UpdateRoomModal = ({
                 <input
                   className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="number"
-                  placeholder={`Current : ${data.roomNumber}`}
-                  name="roomNumber"
-                  onChange={(e) => onChange("roomNumber", e.target.value)}
-                  value={updateRoomData.roomNumber}
+                  placeholder={`Current : ${data.roomnumber}`}
+                  name="roomnumber"
+                  onChange={(e) => onChange("roomnumber", e.target.value)}
+                  value={updateRoomData.roomnumber}
                   required
                 />
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 my-5 gap-4">
+          <div className="grid grid-cols-2 my-5 gap-4">
             <div className="text-md">
               <label className="font-semibold">Price Per Night ($) </label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <input
                   className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="number"
-                  placeholder={`Current : $${data.pricePerNight}`}
-                  name="pricePerNight"
-                  onChange={(e) => onChange("pricePerNight", e.target.value)}
-                  value={updateRoomData.pricePerNight}
+                  placeholder={`Current : $${data.pricepernight}`}
+                  name="pricepernight"
+                  onChange={(e) => onChange("pricepernight", e.target.value)}
+                  value={updateRoomData.pricepernight}
                   required
                 />
               </div>
@@ -89,24 +95,10 @@ const UpdateRoomModal = ({
                   className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="number"
                   min={1}
-                  placeholder={`Current : ${data.sizeArea}m²`}
-                  name="pricePerNight"
-                  onChange={(e) => onChange("sizeArea", e.target.value)}
-                  value={updateRoomData.sizeArea}
-                  required
-                />
-              </div>
-            </div>
-            <div className="text-md">
-              <label className="font-semibold">Availability</label>
-              <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
-                <input
-                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
-                  type="text"
-                  placeholder="Input your new bed type..."
-                  name="bedType"
-                  onChange={(e) => onChange("availability", e.target.value)}
-                  value={"availability"}
+                  placeholder={`Current : ${data.sizearea}m²`}
+                  name="sizearea"
+                  onChange={(e) => onChange("sizearea", e.target.value)}
+                  value={updateRoomData.sizearea}
                   required
                 />
               </div>
@@ -116,28 +108,40 @@ const UpdateRoomModal = ({
             <div className="text-md">
               <label className="font-semibold">Beds</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
-                <input
-                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
-                  type="text"
-                  placeholder="Input beds..."
-                  name="bedType"
-                  onChange={(e) => onChange("beds", e.target.value)}
-                  value={"beds"}
+                <Select
                   required
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  isMulti={true}
+                  options={bedOption.map((bed) => ({
+                    value: bed.id,
+                    label: bed.bedtype,
+                  }))}
+                  onChange={(selected) =>
+                    onChange(
+                      "bedId",
+                      selected ? selected.map((option) => option.value) : []
+                    )
+                  }
                 />
               </div>
             </div>
             <div className="text-md">
               <label className="font-semibold">Facilities</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
-                <input
-                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
-                  type="text"
-                  placeholder="Input facilities..."
-                  name="bedType"
-                  onChange={(e) => onChange("facilities", e.target.value)}
-                  value={"facilities"}
+                <Select
                   required
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  isMulti={true}
+                  options={facilityOption.map((facility) => ({
+                    value: facility.id,
+                    label: facility.facilityname,
+                  }))}
+                  onChange={(selected) =>
+                    onChange(
+                      "facilityId",
+                      selected ? selected.map((option) => option.value) : []
+                    )
+                  }
                 />
               </div>
             </div>

@@ -64,9 +64,6 @@ const roomAttribute = [
     name: "Picture"
   },
   {
-    name: "Floor"
-  },
-  {
     name: "Room Number"
   },
   {

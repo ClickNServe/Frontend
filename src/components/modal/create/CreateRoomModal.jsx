@@ -60,8 +60,8 @@ const CreateRoomModal = ({
                   className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="number"
                   placeholder="Input your room number..."
-                  name="roomNumber"
-                  onChange={(e) => onChange("roomNumber", e.target.value)}
+                  name="roomnumber"
+                  onChange={(e) => onChange("roomnumber", e.target.value)}
                   value={createRoomData.roomnumber}
                   required
                 />
@@ -69,7 +69,7 @@ const CreateRoomModal = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-3 my-5 gap-4">
+          <div className="grid grid-cols-2 my-5 gap-4">
             <div className="text-md">
               <label className="font-semibold">Price Per Night ($) </label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
@@ -77,8 +77,8 @@ const CreateRoomModal = ({
                   className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   type="number"
                   placeholder="Input price per night..."
-                  name="pricePerNight"
-                  onChange={(e) => onChange("pricePerNight", e.target.value)}
+                  name="pricepernight"
+                  onChange={(e) => onChange("pricepernight", e.target.value)}
                   value={createRoomData.pricepernight}
                   required
                 />
@@ -92,23 +92,9 @@ const CreateRoomModal = ({
                   type="number"
                   min={1}
                   placeholder="Input size area..."
-                  name="pricePerNight"
-                  onChange={(e) => onChange("sizeArea", e.target.value)}
+                  name="sizearea"
+                  onChange={(e) => onChange("sizearea", e.target.value)}
                   value={createRoomData.sizearea}
-                  required
-                />
-              </div>
-            </div>
-            <div className="text-md">
-              <label className="font-semibold">Availability</label>
-              <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
-                <input
-                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
-                  type="text"
-                  placeholder="Input your new bed type..."
-                  name="bedType"
-                  onChange={(e) => onChange("availability", e.target.value)}
-                  value={"availability"}
                   required
                 />
               </div>
@@ -123,10 +109,10 @@ const CreateRoomModal = ({
                   className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   isMulti={true}
                   options={bedOption.map((bed) => ({
-                    value: bed,
+                    value: bed.id,
                     label: bed.bedtype,
                   }))}
-                  value={}
+                  onChange={(selected) => onChange("bedId", selected ? selected.map((option) => option.value) : [])}
                 />
               </div>
             </div>
@@ -134,13 +120,15 @@ const CreateRoomModal = ({
               <label className="font-semibold">Facilities</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
                 <Select
+                
                   required
                   className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
                   isMulti={true}
                   options={facilityOption.map((facility) => ({
-                    value: facility,
+                    value: facility.id,
                     label: facility.facilityname,
                   }))}
+                  onChange={(selected) => onChange("facilityId", selected ? selected.map((option) => option.value) : [])}
                 />
               </div>
             </div>
