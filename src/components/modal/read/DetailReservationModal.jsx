@@ -1,7 +1,8 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+import { convertUnixToDateTime, findRoomNumber } from "../../../services/Helper";
 
-const DetailReservationModal = ({ data, onClose }) => {
+const DetailReservationModal = ({ data, onClose, roomData }) => {
   return (
     <div
       className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform popup-visible z-50`}
@@ -34,31 +35,31 @@ const DetailReservationModal = ({ data, onClose }) => {
             <div className="text-md flex">
               <h1 className="font-bold">
                 Room Number :{" "}
-                <span className="font-normal">{data.roomNumber}</span>
+                <span className="font-normal">{findRoomNumber(data.roomId, roomData)}</span>
               </h1>
             </div>
             <div className="text-md flex">
               <h1 className="font-bold">
-                Charge : <span className="font-normal">${data.charge}</span>
+                Charge : <span className="font-normal">${data.totalCharge}</span>
               </h1>
             </div>
           </div>
           <div className="grid grid-cols-2 my-3">
             <div className="text-md flex">
               <h1 className="font-bold">
-                Check In : <span className="font-normal">{data.checkIn}</span>
+                Check In : <span className="font-normal">{convertUnixToDateTime(data.checkIn)}</span>
               </h1>
             </div>
             <div className="text-md flex">
               <h1 className="font-bold">
-                Availability :{" "}
-                <span className="font-normal">{data.checkOut}</span>
+                Check Out :{" "}
+                <span className="font-normal">{convertUnixToDateTime(data.checkOut)}</span>
               </h1>
             </div>
           </div>
           <div className="text-md my-4 flex">
             <h1 className="font-bold">
-              Order Time : <span className="font-normal">{data.orderTime}</span>
+              Order Time : <span className="font-normal">{convertUnixToDateTime(data.orderTime)}</span>
             </h1>
           </div>
         </div>

@@ -1,8 +1,9 @@
-import React from "react";
-import { tdStyle, thStyle } from "../../services/Helper";
+import React, { useEffect, useState } from "react";
+import { findRoomNumber, tdStyle, thStyle } from "../../services/Helper";
 import { orderAttribute } from "../../services/ContentList";
 
-const OrderTable = ({ datas, onDetailClick }) => {
+const OrderTable = ({ datas, onDetailClick, roomData }) => {
+
   return (
     <div className="border rounded-lg shadow overflow-hidden">
       <table className="min-w-full divide-y divide-gray-200">
@@ -21,8 +22,8 @@ const OrderTable = ({ datas, onDetailClick }) => {
               <td className={tdStyle}> {index + 1} </td>
               <td className={tdStyle}> {data.name} </td>
               <td className={tdStyle}> {data.contact} </td>
-              <td className={tdStyle}> {data.roomNumber} </td>
-              <td className={tdStyle}> ${data.charge} </td>
+              <td className={tdStyle}> {findRoomNumber(data.roomId, roomData)} </td>
+              <td className={tdStyle}> ${data.totalCharge} </td>
               <td className={tdStyle}>
                 <button
                   onClick={() => onDetailClick(index)}

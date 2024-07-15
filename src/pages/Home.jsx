@@ -8,9 +8,11 @@ import { API_URL } from "../services/Config";
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState("");
+  const [roomData, setRoomData] = useState([]);
   const [reservationData, setReservationData] = useState([]);
   const [query, setQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(false)
 
   const handleSearch = (e) => {
     setQuery(e.target.value);
@@ -26,34 +28,58 @@ const Home = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
+
+    const fetchRoomData = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(`${API_URL}/all_rooms`);
+        if (res.status === 200) {
+          setRoomData(res?.data);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+      finally {
+        if (isMounted) setLoading(false)
+      }
+    };
+    fetchRoomData();
+    return () => {
+      isMounted = false
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${API_URL}/all_orders`)
+        const res = await axios.get(`${API_URL}/all_orders`);
         if (res.status === 200) {
-          console.log(res)
+          setReservationData(res?.data);
         }
-      }
-      catch (error) {
-        console.log(error.response)
-      }
-      if (datas) {
-        setReservationData(datas);
+      } catch (error) {
+        console.log(error.response);
       }
     };
     fetchData();
-  }, []);
+  }, [reservationData]);
 
   useEffect(() => {
     if (reservationData) {
       const filtered = reservationData.filter(
         (data) =>
-          data.roomNumber.toString().includes(query) ||
           data.name.toLowerCase().includes(query.toLowerCase()) ||
           data.contact.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredData(filtered);
     }
   }, [query, reservationData]);
+
+  if (loading) {
+    return (
+      <div></div>
+    )
+  }
 
   return (
     <div className="relative">
@@ -75,6 +101,7 @@ const Home = () => {
               <OrderTable
                 datas={filteredData}
                 onDetailClick={handleDetailClick}
+                roomData={roomData}
               />
             </div>
           </div>
@@ -83,7 +110,8 @@ const Home = () => {
       {showModal && (
         <DetailReservationModal
           onClose={handleCloseDetailModal}
-          data={datas[selectedId]}
+          data={filteredData[selectedId]}
+          roomData={roomData}
         />
       )}
     </div>

@@ -205,30 +205,31 @@ const Room = () => {
     setShowCreateReservationModal(false);
   };
   const handleReserveAction = async () => {
-    console.log(createReservationData)
+    console.log(createReservationData);
+
     const postData = async () => {
+      const formattedData = {
+        ...createReservationData,
+        roomId: selectedRoomId,
+        totalCharge: parseFloat(
+          countTotalCharge(
+            createReservationData.checkIn,
+            createReservationData.checkOut
+          ) * counter()
+        ),
+        checkIn: (
+          new Date(createReservationData.checkIn).getTime() / 1000
+        ).toString(),
+        checkOut: (
+          new Date(createReservationData.checkOut).getTime() / 1000
+        ).toString(),
+        orderTime: (new Date().getTime() / 1000).toString(),
+      };
+      console.log(formattedData);
       try {
-        const formattedData = {
-          ...createReservationData,
-          roomId: "selectedRoomId",
-          totalCharge: parseFloat(
-            countTotalCharge(
-              createReservationData.checkIn,
-              createReservationData.checkOut
-            ) * counter()
-          ),
-          checkIn: parseString(
-            new Date(createReservationData.checkIn).getTime() / 1000
-          ),
-          checkOut: parseString(
-            new Date(createReservationData.checkOut).getTime() / 1000
-          ),
-          orderTime: parseString(new Date().getTime() / 1000),
-        };
-        console.log(formattedData)
         const res = await axios.post(
           `${API_URL}/reserve_room/${selectedRoomId}`,
-          createReservationData
+          formattedData
         );
         if (res.status === 200) {
           console.log(res);

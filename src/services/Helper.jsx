@@ -18,4 +18,14 @@ const countTotalCharge = (checkIn, checkOut) => {
   return numberOfDays;
 };
 
-export { tdStyle, thStyle, activeLink, nonActiveLink, countTotalCharge };
+const findRoomNumber = (id, roomData) => {
+  const room = roomData.find((item) => item.id === id);
+  return room.roomnumber;
+};
+
+const convertUnixToDateTime = (time) => {
+  const dateTime = new Date(parseInt(time) * 1000)
+  return dateTime.toLocaleString();
+}
+
+export { tdStyle, thStyle, activeLink, nonActiveLink, countTotalCharge, findRoomNumber, convertUnixToDateTime };
