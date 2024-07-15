@@ -8,99 +8,8 @@ import DetailRoomModal from "../components/modal/read/DetailRoomModal";
 import UpdateRoomModal from "../components/modal/update/UpdateRoomModal";
 import CreateRoomModal from "../components/modal/create/CreateRoomModal";
 import CreateReservationModal from "../components/modal/create/CreateReservationModal";
-
-const datas = [
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 101,
-    floor: 1,
-    pricePerNight: 150.0,
-    availability: true,
-    sizeArea: 100,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 202,
-    floor: 2,
-    pricePerNight: 200.0,
-    availability: false,
-    sizeArea: 120,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 303,
-    floor: 3,
-    pricePerNight: 250.0,
-    availability: true,
-    sizeArea: 80,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 404,
-    floor: 4,
-    pricePerNight: 300.0,
-    availability: false,
-    sizeArea: 150,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 505,
-    floor: 5,
-    pricePerNight: 350.0,
-    availability: true,
-    sizeArea: 200,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 606,
-    floor: 6,
-    pricePerNight: 400.0,
-    availability: false,
-    sizeArea: 75,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 707,
-    floor: 7,
-    pricePerNight: 450.0,
-    availability: true,
-    sizeArea: 90,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 808,
-    floor: 8,
-    pricePerNight: 500.0,
-    availability: false,
-    sizeArea: 110,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 909,
-    floor: 9,
-    pricePerNight: 550.0,
-    availability: true,
-    sizeArea: 130,
-  },
-  {
-    picture:
-      "https://www.hdwallpapers.in/download/cell_biology_background_hd_wallpaper_cellular-HD.jpg",
-    roomNumber: 1010,
-    floor: 10,
-    pricePerNight: 600.0,
-    availability: false,
-    sizeArea: 140,
-  },
-];
+import axios from "axios";
+import { API_URL } from "../services/Config";
 
 const Room = () => {
   // modal
@@ -114,16 +23,19 @@ const Room = () => {
   // data
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
+  const [selectedRoomId, setSelectedRoomId] = useState("");
+  const [bedData, setBedData] = useState([]);
+  const [facilityData, setFacilityData] = useState([]);
   const [roomData, setRoomData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [createRoomData, setCreateRoomData] = useState({
     picture: "",
-    roomNumber: "",
-    pricePerNight: "",
+    roomnumber: "",
+    pricepernight: "",
     availability: false,
-    facilities: [{ facilityName: "" }],
-    beds: [{ bedType: "" }],
-    sizeArea: "",
+    facilityId: [],
+    bedId: [],
+    sizearea: "",
   });
   const [updateRoomData, setUpdateRoomData] = useState({
     picture: "",
@@ -161,12 +73,12 @@ const Room = () => {
   const resetCreateAction = () => {
     setCreateRoomData({
       picture: "",
-      roomNumber: "",
-      pricePerNight: "",
+      roomnumber: "",
+      pricepernight: "",
       availability: false,
-      facilities: [{ facilityName: "" }],
-      beds: [{ bedType: "" }],
-      sizeArea: "",
+      facilityId: [],
+      bedId: [],
+      sizearea: "",
     });
   };
 
@@ -251,6 +163,31 @@ const Room = () => {
   };
 
   useEffect(() => {
+    const fetchBedData = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/all_beds`);
+        if (res.status === 200) {
+          setBedData(res?.data);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    const fetchFacilityData = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/all_facilities`);
+        if (res.status === 200) {
+          setFacilityData(res?.data);
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    fetchBedData();
+    fetchFacilityData();
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       if (datas) {
         setRoomData(datas);
@@ -316,6 +253,8 @@ const Room = () => {
       )}
       {showCreateModal && (
         <CreateRoomModal
+          bedOption={bedData}
+          facilityOption={facilityData}
           onClose={handleCloseCreateModal}
           createRoomData={createRoomData}
           onChange={handleCreateDataChange}

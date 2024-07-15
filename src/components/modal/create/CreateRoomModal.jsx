@@ -1,7 +1,15 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+import Select from "react-select";
 
-const CreateRoomModal = ({ onClose, createRoomData, onChange, onAction }) => {
+const CreateRoomModal = ({
+  onClose,
+  createRoomData,
+  onChange,
+  onAction,
+  bedOption,
+  facilityOption,
+}) => {
   return (
     <div
       className={`fixed font-poppins flex items-center justify-center w-screen h-screen inset-0 bg-black bg-opacity-50 transform transition-transform popup-visible z-50`}
@@ -54,7 +62,7 @@ const CreateRoomModal = ({ onClose, createRoomData, onChange, onAction }) => {
                   placeholder="Input your room number..."
                   name="roomNumber"
                   onChange={(e) => onChange("roomNumber", e.target.value)}
-                  value={createRoomData.roomNumber}
+                  value={createRoomData.roomnumber}
                   required
                 />
               </div>
@@ -71,7 +79,7 @@ const CreateRoomModal = ({ onClose, createRoomData, onChange, onAction }) => {
                   placeholder="Input price per night..."
                   name="pricePerNight"
                   onChange={(e) => onChange("pricePerNight", e.target.value)}
-                  value={createRoomData.pricePerNight}
+                  value={createRoomData.pricepernight}
                   required
                 />
               </div>
@@ -86,7 +94,7 @@ const CreateRoomModal = ({ onClose, createRoomData, onChange, onAction }) => {
                   placeholder="Input size area..."
                   name="pricePerNight"
                   onChange={(e) => onChange("sizeArea", e.target.value)}
-                  value={createRoomData.sizeArea}
+                  value={createRoomData.sizearea}
                   required
                 />
               </div>
@@ -110,28 +118,29 @@ const CreateRoomModal = ({ onClose, createRoomData, onChange, onAction }) => {
             <div className="text-md">
               <label className="font-semibold">Beds</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
-                <input
-                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
-                  type="text"
-                  placeholder="Input beds..."
-                  name="bedType"
-                  onChange={(e) => onChange("beds", e.target.value)}
-                  value={"beds"}
+                <Select
                   required
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  isMulti={true}
+                  options={bedOption.map((bed) => ({
+                    value: bed,
+                    label: bed.bedtype,
+                  }))}
+                  value={}
                 />
               </div>
             </div>
             <div className="text-md">
               <label className="font-semibold">Facilities</label>
               <div className="flex justify-between items-center mt-4 rounded-xl bg-gray-300">
-                <input
-                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
-                  type="text"
-                  placeholder="Input facilities..."
-                  name="bedType"
-                  onChange={(e) => onChange("facilities", e.target.value)}
-                  value={"facilities"}
+                <Select
                   required
+                  className="input-placeholder block w-full bg-transparent border-0 text-sm py-3 px-3 focus:outline-none focus:ring-0 focus:border-transparent"
+                  isMulti={true}
+                  options={facilityOption.map((facility) => ({
+                    value: facility,
+                    label: facility.facilityname,
+                  }))}
                 />
               </div>
             </div>
